@@ -1,0 +1,48 @@
+################################################################################
+#
+# Include this file in your .bashrc:
+# if [ -r "$HOME/.bashrc.$USER" ]; then
+#   . $HOME/.bashrc.$USER
+# fi
+#
+################################################################################
+
+# custom prompt; visit http://ezprompt.net for a visual guide
+# export PS1="\W\\$ "
+case "$TERM" in
+"dumb")
+    PS1="> "
+    ;;
+xterm*|rxvt*|eterm*|screen*|tmux*)
+    PS1="\W\\$ "
+    ;;
+*)
+    PS1="> "
+    ;;
+esac
+
+# Set default text editor
+export EDITOR='emacs'
+export VISUAL='emacs'
+
+# My scripts
+# export PATH=<path-to-scripts>/scripts:$PATH
+
+# Everybody prefers 'mcd' to do this
+function mcd() {
+	mkdir -p "$@"
+	cd "$@"
+}
+export -f mcd
+
+# Refresh DISPLAY env
+function refresh() {
+  export $(tmux show-environment | grep DISPLAY)
+}
+export -f refresh
+
+# Aliases
+alias cls='clear'
+alias ll='ls -l'
+alias lf='ls -F'
+alias lr='ls -R'
